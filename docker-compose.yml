@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  verable.sample.dotnet:
+    image: verable.sample.dotnet
+    container_name: verable_sample_dotnet
+    build: .
+
+networks:
+    default:
+        external:
+            name: verable_net
