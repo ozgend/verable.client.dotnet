@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -30,14 +31,17 @@ namespace Service1
             var id = await _verableBeacon.Register(definition);
             Console.WriteLine($"Register {definition.Name} id:{id}");
 
-            var definiton1 = await _verableBeacon.DiscoverOne("Service2");
-            Console.WriteLine($"Discover Service2: {JsonConvert.SerializeObject(definiton1)}");
+            var discoverOne = await _verableBeacon.DiscoverOne("Service2");
+            Console.WriteLine($"Discover One: {JsonConvert.SerializeObject(discoverOne)}");
 
-            var definitonAll = await _verableBeacon.DiscoverAll();
-            Console.WriteLine($"Discover All: {JsonConvert.SerializeObject(definitonAll)}");
+            var discoverN = await _verableBeacon.DiscoverN(new List<string> { "Service1", "Service2" });
+            Console.WriteLine($"Discover N: {JsonConvert.SerializeObject(discoverOne)}");
 
-            //await _verableBeacon.Deregister();
-            //Console.WriteLine("Deregister");
+            var discoverAll = await _verableBeacon.DiscoverAll();
+            Console.WriteLine($"Discover All: {JsonConvert.SerializeObject(discoverAll)}");
+
+            await _verableBeacon.Deregister();
+            Console.WriteLine("Deregister");
 
             Console.WriteLine("awaiting...");
             Console.ReadLine();
